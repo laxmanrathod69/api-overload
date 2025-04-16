@@ -4,6 +4,7 @@ import axios from "axios";
 import { loadTestQueue } from "../config/bullmq";
 import { redis } from "../config/redis";
 import { io } from "../sockets";
+import { v4 } from "uuid";
 
 // Load Test Worker (this is where the test logic runs)
 export const loadTestWorker = new Worker(
@@ -18,6 +19,7 @@ export const loadTestWorker = new Worker(
         method,
         headers,
         concurrency,
+        jobId: job.id!,
         status: "In Progress",
       },
     });
@@ -94,12 +96,18 @@ export const addToQueue = async (
   headers: any,
   concurrency: number
 ) => {
-  const job = await loadTestQueue.add("loadTest", {
-    apiUrl,
-    method,
-    headers,
-    concurrency,
-  });
+  const jobId = v4();
+  const job = await loadTestQueue.add(
+    "loadTest",
+    {
+      apiUrl,
+      method,
+      headers,
+      concurrency,
+      jobId,
+    },
+    { jobId }
+  );
 
   return job;
 };

@@ -1,10 +1,14 @@
 import express from "express";
-import { createTest, getTests } from "../controllers/testController";
+import {
+  createTest,
+  getTests,
+  onGetTestResult,
+} from "../controllers/testController";
 
 const router = express.Router();
 
 router.post("/create", createTest);
-
-router.get("/", getTests);
+router.get("/completion/:jobId", onGetTestResult);
+router.get("/results", getTests);
 
 export default router;
