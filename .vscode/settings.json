@@ -1,0 +1,11 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
+  "stylelint.validate": ["css", "scss", "postcss"],
+  "css.validate": false, // optional, disable VSCode built-in CSS validation (Stylelint is better)
+  "scss.validate": false,
+  "postcss.validate": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
